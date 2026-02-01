@@ -7,7 +7,7 @@
 
     <!-- NuGet Package Metadata -->
     <PackageId>Mythetech.BlazorOverlayScrollbars</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Mythetech</Authors>
     <Company>Mythetech</Company>
     <Description>Blazor wrapper for OverlayScrollbars - beautiful custom scrollbars for Blazor applications. Includes MudBlazor theme integration with dark/light mode support.</Description>

@@ -21,15 +21,15 @@ dotnet add package Mythetech.BlazorOverlayScrollbars
 1. Add the CSS references to your `index.html` or `_Host.cshtml`:
 
 ```html
-<link href="_content/Blazor.OverlayScrollbars/css/overlayscrollbars.min.css" rel="stylesheet" />
+<link href="_content/Mythetech.BlazorOverlayScrollbars/css/overlayscrollbars.min.css" rel="stylesheet" />
 <!-- Optional: MudBlazor theme integration -->
-<link href="_content/Blazor.OverlayScrollbars/css/overlayscrollbars-mudblazor-theme.css" rel="stylesheet" />
+<link href="_content/Mythetech.BlazorOverlayScrollbars/css/overlayscrollbars-mudblazor-theme.css" rel="stylesheet" />
 ```
 
 2. Add the JavaScript reference (before `</body>`):
 
 ```html
-<script src="_content/Blazor.OverlayScrollbars/js/overlayscrollbars.min.js"></script>
+<script src="_content/Mythetech.BlazorOverlayScrollbars/js/overlayscrollbars.min.js"></script>
 ```
 
 ## Usage

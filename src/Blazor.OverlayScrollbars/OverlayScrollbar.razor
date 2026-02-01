@@ -48,7 +48,7 @@
         {
             _module = await JS.InvokeAsync<IJSObjectReference>(
                 "import",
-                "./_content/Blazor.OverlayScrollbars/js/overlay-scrollbars-interop.js");
+                "./_content/Mythetech.BlazorOverlayScrollbars/js/overlay-scrollbars-interop.js");
 
             var options = Options?.ToJsOptions() ?? new { };
             await _module.InvokeAsync<bool>("initialize", _elementId, options);
