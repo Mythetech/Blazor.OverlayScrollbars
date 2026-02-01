@@ -1,0 +1,86 @@
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+
+<div id="@_elementId" class="@CombinedClass" style="@Style">
+    @ChildContent
+</div>
+
+@code {
+    private string _elementId = $"os-{Guid.NewGuid():N}";
+    private IJSObjectReference? _module;
+    private bool _initialized;
+
+    [Inject] private IJSRuntime JS { get; set; } = default!;
+
+    /// <summary>
+    /// The content to be wrapped with OverlayScrollbars.
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Additional CSS class(es) to apply to the scrollbar container.
+    /// </summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>
+    /// Inline styles to apply to the scrollbar container.
+    /// </summary>
+    [Parameter] public string? Style { get; set; }
+
+    /// <summary>
+    /// OverlayScrollbars options. See https://kingsora.github.io/OverlayScrollbars/ for available options.
+    /// </summary>
+    [Parameter] public OverlayScrollbarOptions? Options { get; set; }
+
+    private string CombinedClass => string.IsNullOrWhiteSpace(Class) ? "overlay-scrollbar" : $"overlay-scrollbar {Class}";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await InitializeAsync();
+        }
+    }
+
+    private async Task InitializeAsync()
+    {
+        try
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>(
+                "import",
+                "./_content/Blazor.OverlayScrollbars/js/overlay-scrollbars-interop.js");
+
+            var options = Options?.ToJsOptions() ?? new { };
+            await _module.InvokeAsync<bool>("initialize", _elementId, options);
+            _initialized = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"OverlayScrollbar: Failed to initialize - {ex.Message}");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null && _initialized)
+        {
+            try
+            {
+                await _module.InvokeAsync<bool>("destroy", _elementId);
+            }
+            catch
+            {
+                // Ignore errors during disposal (element may already be gone)
+            }
+
+            try
+            {
+                await _module.DisposeAsync();
+            }
+            catch
+            {
+                // Ignore errors during disposal
+            }
+        }
+    }
+}

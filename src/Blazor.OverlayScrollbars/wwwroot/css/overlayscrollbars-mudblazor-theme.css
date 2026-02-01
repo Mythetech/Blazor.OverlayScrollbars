@@ -1,0 +1,52 @@
+/* OverlayScrollbars - MudBlazor Theme Integration */
+/* Uses MudBlazor CSS variables for consistent theming */
+
+/* Dark theme (default) - scrollbar handle */
+.os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
+    background: var(--mud-palette-lines-default, rgba(255, 255, 255, 0.2));
+    border-radius: 3px;
+}
+
+/* Dark theme - scrollbar handle on hover */
+.os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle,
+.os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle:hover {
+    background: var(--mud-palette-text-secondary, rgba(255, 255, 255, 0.4));
+}
+
+/* Dark theme - scrollbar handle when active (dragging) */
+.os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
+    background: var(--mud-palette-text-primary, rgba(255, 255, 255, 0.5));
+}
+
+/* Light theme support */
+.mud-theme-light .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
+    background: var(--mud-palette-lines-default, rgba(0, 0, 0, 0.2));
+}
+
+.mud-theme-light .os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle,
+.mud-theme-light .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle:hover {
+    background: var(--mud-palette-text-secondary, rgba(0, 0, 0, 0.4));
+}
+
+.mud-theme-light .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle.active {
+    background: var(--mud-palette-text-primary, rgba(0, 0, 0, 0.5));
+}
+
+/* Scrollbar track - transparent by default */
+.os-theme-dark > .os-scrollbar > .os-scrollbar-track {
+    background: transparent;
+}
+
+/* Scrollbar sizing - thin style */
+.os-theme-dark > .os-scrollbar-vertical {
+    width: 6px;
+}
+
+.os-theme-dark > .os-scrollbar-horizontal {
+    height: 6px;
+}
+
+/* Corner where scrollbars meet */
+.os-theme-dark > .os-scrollbar-corner {
+    background: transparent;
+}
