@@ -7,7 +7,7 @@
 
     <!-- NuGet Package Metadata -->
     <PackageId>Mythetech.BlazorOverlayScrollbars</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Mythetech</Authors>
     <Company>Mythetech</Company>
     <Description>Blazor wrapper for OverlayScrollbars - beautiful custom scrollbars for Blazor applications. Includes MudBlazor theme integration with dark/light mode support.</Description>
@@ -21,15 +21,12 @@
 
     <!-- Enable static web assets -->
     <StaticWebAssetsEnabled>true</StaticWebAssetsEnabled>
+    <AddRazorSupportForMvc>false</AddRazorSupportForMvc>
 
     <!-- Include symbols for debugging -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.1" />
