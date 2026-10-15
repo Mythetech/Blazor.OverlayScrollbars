@@ -35,8 +35,12 @@ export function initialize(elementId, options) {
         instances.delete(elementId);
     }
 
+    // The component renders its own viewport so OverlayScrollbars never moves the nodes Blazor manages.
+    const viewport = element.querySelector(':scope > .overlay-scrollbar-viewport');
+    const target = viewport ? { target: element, elements: { viewport } } : element;
+
     try {
-        const instance = OS(element, options || {});
+        const instance = OS(target, options || {});
         instances.set(elementId, instance);
         return true;
     } catch (error) {
