@@ -1,8 +1,13 @@
 @using Microsoft.JSInterop
 @implements IAsyncDisposable
 
+@* OverlayScrollbars otherwise generates a viewport and moves the host's children into it. Blazor keeps
+   rendering into the host, so content it re-creates (a keyed element, a branch that toggles) would land
+   outside the viewport. Handing it this viewport leaves every node where Blazor put it. *@
 <div id="@_elementId" class="@CombinedClass" style="@Style">
-    @ChildContent
+    <div class="overlay-scrollbar-viewport">
+        @ChildContent
+    </div>
 </div>
 
 @code {

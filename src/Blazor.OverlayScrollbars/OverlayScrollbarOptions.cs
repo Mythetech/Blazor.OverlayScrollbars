@@ -30,31 +30,48 @@ public class OverlayScrollbarOptions
     public ScrollbarOptions? Scrollbars { get; set; }
 
     /// <summary>
-    /// Converts to anonymous object for JS interop.
+    /// Converts to the options object for JS interop, holding only the options that are set.
     /// </summary>
+    /// <remarks>
+    /// OverlayScrollbars takes a null option as the value to use rather than as unset, so sending one replaces
+    /// the library's default: a null visibility never shows the scrollbars, and a null dragScroll stops the
+    /// handle from dragging. Leaving unset options out keeps those defaults.
+    /// </remarks>
     internal object ToJsOptions()
     {
-        return new
+        var options = new Dictionary<string, object>();
+        AddIfSet(options, "paddingAbsolute", PaddingAbsolute);
+        AddIfSet(options, "showNativeOverlaidScrollbars", ShowNativeOverlaidScrollbars);
+
+        if (ScrollBehavior != null)
         {
-            paddingAbsolute = PaddingAbsolute,
-            showNativeOverlaidScrollbars = ShowNativeOverlaidScrollbars,
-            overflow = ScrollBehavior != null ? new
-            {
-                x = ScrollBehavior.X,
-                y = ScrollBehavior.Y
-            } : null,
-            scrollbars = Scrollbars != null ? new
-            {
-                theme = Scrollbars.Theme,
-                visibility = Scrollbars.Visibility,
-                autoHide = Scrollbars.AutoHide,
-                autoHideDelay = Scrollbars.AutoHideDelay,
-                autoHideSuspend = Scrollbars.AutoHideSuspend,
-                dragScroll = Scrollbars.DragScroll,
-                clickScroll = Scrollbars.ClickScroll,
-                pointers = Scrollbars.Pointers
-            } : null
-        };
+            var overflow = new Dictionary<string, object>();
+            AddIfSet(overflow, "x", ScrollBehavior.X);
+            AddIfSet(overflow, "y", ScrollBehavior.Y);
+            options["overflow"] = overflow;
+        }
+
+        if (Scrollbars != null)
+        {
+            var scrollbars = new Dictionary<string, object>();
+            AddIfSet(scrollbars, "theme", Scrollbars.Theme);
+            AddIfSet(scrollbars, "visibility", Scrollbars.Visibility);
+            AddIfSet(scrollbars, "autoHide", Scrollbars.AutoHide);
+            AddIfSet(scrollbars, "autoHideDelay", Scrollbars.AutoHideDelay);
+            AddIfSet(scrollbars, "autoHideSuspend", Scrollbars.AutoHideSuspend);
+            AddIfSet(scrollbars, "dragScroll", Scrollbars.DragScroll);
+            AddIfSet(scrollbars, "clickScroll", Scrollbars.ClickScroll);
+            AddIfSet(scrollbars, "pointers", Scrollbars.Pointers);
+            options["scrollbars"] = scrollbars;
+        }
+
+        return options;
+    }
+
+    private static void AddIfSet(Dictionary<string, object> target, string name, object? value)
+    {
+        if (value != null)
+            target[name] = value;
     }
 }
 
